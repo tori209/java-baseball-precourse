@@ -4,12 +4,12 @@ import camp.nextstep.edu.missionutils.Randoms;
 
 public class GameMaster {
     private final CmdReader cmdReader;
-    private final AnswerValidator answerValidator;
+    private final AnswerChecker answerChecker;
     private int answer;
 
     GameMaster() {
         cmdReader = new CmdReader();
-        answerValidator = new AnswerValidator();
+        answerChecker = new AnswerChecker();
     }
 
     private void createAnswer() {
@@ -23,26 +23,26 @@ public class GameMaster {
     public void startGame() throws IllegalArgumentException {
         // Init Process
         createAnswer();
-        answerValidator.setAnswer(Integer.toString(this.answer));
+        answerChecker.setAnswer(Integer.toString(this.answer));
 
         // Main Test
         do {
             System.out.print("숫자를 입력해주세요 : ");
             cmdReader.refreshVal();
-            answerValidator.checkAnswer(cmdReader.getVal());
+            answerChecker.checkAnswer(cmdReader.getVal());
 
-            if (answerValidator.getBall() != 0) {
-                System.out.printf("%d볼 ", answerValidator.getBall());
+            if (answerChecker.getBall() != 0) {
+                System.out.printf("%d볼 ", answerChecker.getBall());
             }
-            if (answerValidator.getStrike() != 0) {
-                System.out.printf("%d스트라이크", answerValidator.getStrike());
+            if (answerChecker.getStrike() != 0) {
+                System.out.printf("%d스트라이크", answerChecker.getStrike());
             }
-            if (answerValidator.isNothing()) {
+            if (answerChecker.isNothing()) {
                 System.out.print("낫싱");
             }
             System.out.print("\n");
 
-        } while(answerValidator.getStrike() != 3);
+        } while(answerChecker.getStrike() != 3);
     }
 
     public boolean endGame() throws IllegalArgumentException {
@@ -60,6 +60,4 @@ public class GameMaster {
             throw new IllegalArgumentException();
         }
     }
-
-
 }

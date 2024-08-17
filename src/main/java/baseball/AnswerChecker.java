@@ -1,6 +1,6 @@
 package baseball;
 
-public class AnswerValidator {
+public class AnswerChecker {
     private String answer;
     private int strike;
     private int ball;
