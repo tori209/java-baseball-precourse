@@ -1,29 +1,17 @@
 package baseball;
 
-import camp.nextstep.edu.missionutils.Randoms;
-
 public class GameMaster {
     private final CmdReader cmdReader;
     private final AnswerChecker answerChecker;
-    private int answer;
 
     GameMaster() {
         cmdReader = new CmdReader();
         answerChecker = new AnswerChecker();
     }
 
-    private void createAnswer() {
-        answer = 0;
-        for (int i = 0; i < 3; i++) {
-            answer *= 10;
-            answer += Randoms.pickNumberInRange(1, 9);
-        }
-    }
-
     public void startGame() throws IllegalArgumentException {
         // Init Process
-        createAnswer();
-        answerChecker.setAnswer(Integer.toString(this.answer));
+        answerChecker.initAnswer();
 
         // Main Test
         do {

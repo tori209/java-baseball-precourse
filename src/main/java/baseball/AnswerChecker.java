@@ -1,18 +1,29 @@
 package baseball;
 
+import camp.nextstep.edu.missionutils.Randoms;
+
 public class AnswerChecker {
     private String answer;
     private int strike;
     private int ball;
 
+    private int createAnswer() {
+        int ret = 0;
+        for (int i = 0; i < 3; i++) {
+            ret *= 10;
+            ret += Randoms.pickNumberInRange(1, 9);
+        }
+        return ret;
+    }
+
     private void validation(String input) throws IllegalArgumentException {
-        if (!input.matches("[+-]?[1-9]{3}")) {
+        if (input == null || !input.matches("[+-]?[1-9]{3}")) {
             throw new IllegalArgumentException();
         }
     }
 
-    public void setAnswer(String answer) {
-        this.answer = answer;
+    public void initAnswer() {
+        this.answer = Integer.toString(createAnswer());
         strike = ball = -1;
     }
 
@@ -21,7 +32,7 @@ public class AnswerChecker {
         boolean[] inp_checked = {false, false, false};
         boolean[] ans_checked = {false, false, false};
 
-        // Strike & Ball Check
+        // Strike Check
         this.strike = 0;
         for (int i = 0; i < 3; i++) {
             if (input.charAt(i) != this.answer.charAt(i)) {  continue;  }
