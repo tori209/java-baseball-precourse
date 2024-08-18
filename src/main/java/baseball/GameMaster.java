@@ -27,7 +27,7 @@ public class GameMaster {
             if (answerChecker.isNothing()) {
                 cmdController.printf("낫싱");
             }
-            System.out.print("\n");
+            cmdController.print("\n");
 
         } while(answerChecker.getStrike() != 3);
     }
