@@ -1,11 +1,11 @@
 package baseball;
 
 public class GameMaster {
-    private final CmdReader cmdReader;
+    private final CmdController cmdController;
     private final AnswerChecker answerChecker;
 
     GameMaster() {
-        cmdReader = new CmdReader();
+        cmdController = new CmdController();
         answerChecker = new AnswerChecker();
     }
 
@@ -15,18 +15,17 @@ public class GameMaster {
 
         // Main Test
         do {
-            System.out.print("숫자를 입력해주세요 : ");
-            cmdReader.refreshVal();
-            answerChecker.checkAnswer(cmdReader.getVal());
+            cmdController.print("숫자를 입력해주세요 : ");
+            answerChecker.checkAnswer(cmdController.read());
 
             if (answerChecker.getBall() != 0) {
-                System.out.printf("%d볼 ", answerChecker.getBall());
+                cmdController.printf("%d볼 ", answerChecker.getBall());
             }
             if (answerChecker.getStrike() != 0) {
-                System.out.printf("%d스트라이크", answerChecker.getStrike());
+                cmdController.printf("%d스트라이크", answerChecker.getStrike());
             }
             if (answerChecker.isNothing()) {
-                System.out.print("낫싱");
+                cmdController.printf("낫싱");
             }
             System.out.print("\n");
 
@@ -34,11 +33,10 @@ public class GameMaster {
     }
 
     public boolean endGame() throws IllegalArgumentException {
-        System.out.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료\n");
-        System.out.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n");
+        cmdController.printf("3개의 숫자를 모두 맞히셨습니다! 게임 종료\n");
+        cmdController.printf("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n");
 
-        cmdReader.refreshVal();
-        String choice = cmdReader.getVal();
+        String choice = cmdController.read();
 
         if (choice.equals("1")) {
             return true;
